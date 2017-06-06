@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% autoescape on %}
+{% block content %}
+    {% include 'mav.html' %}
+
+欢迎来到德莱文联盟!
+    <table align="center">
+    <tr>
+        <td>
+            <form action="/query" method="post">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                <input type="text" name="productname">
+                <input type="submit" value="搜索">
+            </form>
+        </td>
+    </tr>
+    </table>
+
+    <br/>
+    <table id="result_list" align="center">
+<thead>
+<tr>
+
+
+<th scope="col"  class="column-__str__">
+
+   <div class="text"><span>产品</span></div>
+   <div class="clear"></div>
+</th>
+    <th scope="col"  class="column-__str__">
+
+   <div class="text"><span>价格</span></div>
+   <div class="clear"></div>
+</th>
+    <th scope="col"  class="column-__str__">
+
+   <div class="text"><span>分类</span></div>
+   <div class="clear"></div>
+</th>
+    <th scope="col"  class="column-__str__">
+
+   <div class="text"><span>图片</span></div>
+   <div class="clear"></div>
+</th>
+</tr>
+</thead>
+<tbody>
+
+{% for obj in page %}
+<tr class="row2">
+    <th class="field-__str__">{{ obj.name }}<br><a href="/order?pid={{ obj.id }}">订购</a> </th>
+    <th class="field-__str__">{{ obj.price }}</th>
+    <th class="field-__str__">{{ obj.ptype }}</th>
+    <th class="field-__str__"><img src="/media/{{ obj.img }}"/></th>
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+    {% include "pagenum.html" %}
+{% endblock %}
+{% endautoescape %}

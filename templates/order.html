@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% autoescape on %}
+{% block content %}
+    {% include 'mav.html' %}
+
+欢迎购买商品!
+
+    {{ order.user.username }}
+    <br>
+    {{ order.orderDate }}
+    <br>
+    {{ order.product.name }}
+    <br>
+    {{ order.product.price }}
+    <br>
+    <img src="/media/{{ order.product.img }}">
+    <br>
+    {% include "pagenum.html" %}
+{% endblock %}
+{% endautoescape %}
